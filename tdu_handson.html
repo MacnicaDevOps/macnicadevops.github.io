@@ -430,6 +430,10 @@ services:
 					</section>
 					<section>
 						<h3>Dockerfile</h3>
+						Dockerfileはdockerイメージをビルドするための定義ファイルです。
+						<b>Dockerfileの作成</b>
+						<pre>$ vi Dockerfile</pre>
+						「i」キーを押して編集モードにし、以下をコピー&ペーストします。						
 						<pre><code class="hljs" data-trim data-line-numbers="4,8-11">
 from nginx
 
@@ -439,12 +443,18 @@ RUN chmod +x /usr/share/nginx/html/index.html
 
 EXPOSE 80
 						</code></pre>
+						<b>Dockerfileの保存</b>
+						「Esc」キーを押して編集モードを終了し、「:wq」と記載して保存・終了します。
 					</section>
 					<section data-markdown>
 						### Dockerイメージをビルドする
 							$ docker build -t web:1.0 .
 						### ビルドしたイメージを起動する
 							$ docker run -p 80:80 -d web:1.0
+					</section>
+					<section>
+						<div align=left><h3>起動したイメージでWebページを表示</h3>
+						<img src="img/wo1.png" width="80%">
 					</section>
 					<section data-markdown>
 						### ビルドしたイメージをDocker HubにPushする
