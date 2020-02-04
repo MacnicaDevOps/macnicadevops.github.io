@@ -59,16 +59,12 @@
 							- 基本コマンド及びDocker Hubのアカウント作成する
 							- dockerでアプリケーションをデプロイする
 							- dockerイメージをビルドする
-						##### 3. コンテナ環境におけるセキュリティ(時間があれば)
-					</section>
-					<section>
-						<h3>「基本解説」の資料</h3>
-						<a href="https://macnicadevops.github.io/img/20191216_TDU%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%88%E3%82%99%E8%AC%9B%E7%BE%A9_%E3%82%B3%E3%83%B3%E3%83%86%E3%83%8A%E5%9E%8B%E4%BB%AE%E6%83%B3%E5%8C%96.pdf" target="_blank">ダウンロード</a>
+						### 3. コンテナ環境におけるセキュリティ
 					</section>
 				</section>
 				<section>
 					<section data-transition="slide" data-background="#faf0e6" data-background-transition="zoom">
-						<h3><font color="black">ハンズオン</font></h3>
+						<h3><font color="black">2. ハンズオン</font></h3>
 					</section>
 				</section>
 				<section>
@@ -87,7 +83,7 @@
 							$ sudo reboot
 					
 						#### 前提条件
-							OS: Ubuntu16.04 LTS
+							OS: Ubuntu18.04 LTS
 					</section>
 				</section>
 				<section>
@@ -160,17 +156,17 @@
 							   $ docker images
 					</section>
 					<section data-markdown>
-						### その他よく使うdockerコマンドの例
+						### その他のdockerコマンドの例
 						※ Docker社の[dockerコマンドリファレンス](http://docs.docker.jp/engine/reference/commandline/index.html)もあわせて参照
 						
 							docker pull <イメージ名>  ## 外部レジストリからイメージを取得
 							docker run <イメージ名>   ## イメージからdockerを起動
-							docker logs <コンテナID>  ## dockerコンテナのログを出力
-							docker exec <コンテナID>  ## dockerコンテナの中にログイン
-							docker stop <コンテナID>  ## 起動中のdockerコンテナを停止
-							docker start <コンテナID> ## 停止中のdockerコンテナを起動
-							docker rm <コンテナID>    ## dockerコンテナを削除
-							docker rmi <イメージ名>   ## ローカルのdockerイメージを削除
+							docker logs <コンテナIDまたはコンテナ名>  ## dockerコンテナのログを出力
+							docker exec <コンテナIDまたはコンテナ名>  ## dockerコンテナの中にログイン
+							docker stop <コンテナIDまたはコンテナ名>  ## 起動中のdockerコンテナを停止
+							docker start <コンテナIDまたはコンテナ名> ## 停止中のdockerコンテナを起動
+							docker rm <コンテナIDまたはコンテナ名>    ## dockerコンテナを削除
+							docker rmi <イメージIDまたはイメージ名＋タグ>   ## ローカルのdockerイメージを削除
 					</section>
 				</section>
 				<section>
