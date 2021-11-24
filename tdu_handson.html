@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>20201202 講義資料</title>
+
+		<meta name="description" content="">
+		<meta name="Minehiko Nohara" content="Macnica Solutions">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="shortcut icon" href="https://www.macnica.net/image/favicon.ico" />
+		<link rel="stylesheet" href="/css/reset.css">
+		<link rel="stylesheet" href="/css/reveal.css">
+		<link rel="stylesheet" href="/css/theme/moon.css" id="theme">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="/lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? '/css/print/pdf.css' : '/css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="/lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<div class="slides">
+
+                                <section>
+				        <h2>TDU</br>コンテナ型仮想化</h2>
+				        <h5>2021/12/01</h5>
+                                        <h5>株式会社マクニカ</h5>
+                                        <h5>Minehiko Nohara</h5>
+                                </section>
+				<section>
+					<!--<section data-markdown>-->
+					<H2>Agenda</H2>
+					<div align="left">
+					  <a href="#/3">1. dockerのインストール</a></br>
+					  <a href="#/4">2. docker hub</a></br>
+					  <a href="#/5">3. ハンズオン環境へのアクセス</a></br>
+					  <a href="#/6">4. Dockerの基本コマンド</a></br>
+					  <a href="#/7">5. wordpressのシステムを構築する</a></br>
+					  <a href="#/8">6. Dockerのコマンドを試す</a></br>
+					  <a href="#/9">7. dockerコンテナの中にログインする</a></br>
+					  <a href="#/10">8. dockerコンテナの停止と削除</a></br>
+				          <a href="#/11">9. docker compose</a></br>
+					  <a href="#/12">10. 自分のdockerイメージをビルドする</a></br>
+					</div>
+					<!--</section>-->
+				</section>
+				<section>
+					<section data-transition="slide" data-background="#faf0e6" data-background-transition="zoom">
+						<h3><font color="black">ハンズオン</font></h3>
+					</section>
+				</section>
+				<section>
+					<section data-markdown>
+						### 1. dockerのインストール
+						#### (今回は実施対象外)
+							1. システムのUpdate 
+							$ sudo apt-get update
+
+							2. dockerをインストール
+							$ sudo apt-get install docker.io
+
+							3. ログインユーザーをdockerグループに追加
+							$ sudo gpasswd -a $USER docker
+
+							4. 再起動
+							$ sudo reboot
+					
+						#### 前提条件
+							OS: Ubuntu18.04 LTS
+					</section>
+					<section data-markdown>
+						### docker-composeを利用する場合
+							1. パッケージの取得 
+							$ sudo curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
+							2. 実行権限の付与
+							$ sudo chmod +x /usr/local/bin/docker-compose
+						
+							3. バージョン確認
+							$ docker-compose --version
+					
+						#### 前提条件
+							OS: Ubuntu18.04 LTS
+							docker-composeバージョン: 1.27.4
+						#### 補足
+							インストールするdocker-composeのバージョンは、上記のコマンドの中のバージョン番号を変えることで変更できます。
+							次のページでバージョンが確認できます:
+							https://github.com/docker/compose/releases
+					</section>
+					<section>
+						<H3>公式ドキュメント(英語)</H3>
+						<H5>Dockerエンジンのインストール</H5>
+						  <a href="https://docs.docker.com/engine/install/" target="_blank">https://docs.docker.com/engine/install/</a>
+						<H5>docker-composeのインストール</H5>
+ 						  <a href="https://docs.docker.com/compose/install/" target="_blank">https://docs.docker.com/compose/install/</a>
+					</section>
+				</section>
+				<section>
+					<section data-markdown>
+						### 2. docker hub
+							1. docker hubへのアクセス 
+							https://hub.docker.com/
+						
+							2. アカウントを作成
+
+							3. アプリケーション検索
+
+							4. tagの考え方
+					</section>
+					<section>
+						<div>dockr hubにアクセスする</div>
+						<a href="https://hub.docker.com/" target="_blank">https://hub.docker.com/</a>
+					</section>
+					<section>
+						<div>アカウント作成1</div>
+						<img src="img/signup_dh.png" width="80%">
+					</section>
+					<section>
+						<div >アカウント作成2</div>
+						<img src="img/signup_dh2.png" width="50%">
+					</section>
+					<section>
+						<div>アプリケーションの検索</div>
+						<img src="img/search_dh.png" width="80%">
+					</section>
+					<section>
+						<div>Tag</div>
+						<img src="img/tags_dh.png"width="80%">
+					</section>
+				</section>
+				<section>
+					<section>
+						<h3>3. ハンズオン環境へのアクセス</h3>
+						<a href="https://labs.play-with-docker.com/" target="_blank">https://labs.play-with-docker.com/</a>
+					</section>
+					<section>
+						<div>docker hubのアカウントでログイン</div>
+						<img src="img/dp1.png" width="80%">	
+					</section>
+					<section>
+						<div>docker hubのアカウント情報を入力</div>
+						<img src="img/dp2.png" width="80%">	
+					</section>
+					<section>
+						<div>「Start」をクリック</div>
+						<img src="img/dp3.png" width="80%">	
+					</section>
+					<section>
+						<div>Docker Playgroundでホストを追加</div>
+						<img src="img/dp4.png" width="80%">	
+					</section>
+					<section>
+						<div>準備完了</div>
+						<img src="img/dp5.png" width="80%">	
+					</section>
+				</section>
+				<section>
+					<section data-markdown>
+						### 4. Dockerの基本コマンド
+							1. 起動中のdockerコンテナ一覧出力
+							   $ docker ps 
+							2. 停止中も含めたdockerコンテナの一覧出力
+							   $ docker ps -a
+							3. ローカルにあるdockerイメージの一覧を出力
+							   $ docker images
+					</section>
+					<section data-markdown>
+						### その他のdockerコマンドの例
+						※ Docker社の[dockerコマンドリファレンス](http://docs.docker.jp/engine/reference/commandline/index.html)もあわせて参照
+						
+							docker pull <イメージ名>  ## 外部レジストリからイメージを取得
+							docker run <イメージ名>   ## イメージからdockerを起動
+							docker logs <コンテナIDまたはコンテナ名>  ## dockerコンテナのログを出力
+							docker exec <コンテナIDまたはコンテナ名>  ## dockerコンテナの中にログイン
+							docker stop <コンテナIDまたはコンテナ名>  ## 起動中のdockerコンテナを停止
+							docker start <コンテナIDまたはコンテナ名> ## 停止中のdockerコンテナを起動
+							docker rm <コンテナIDまたはコンテナ名>    ## dockerコンテナを削除
+							docker rmi <イメージIDまたはイメージ名＋タグ>   ## ローカルのdockerイメージを削除
+					</section>
+				</section>
+				<section>
+					<section data-markdown>
+						### 5. wordpressのシステムを構築する
+							1. MySQLのデプロイ
+						
+							2. Wordpressのデプロイ
+					</section>
+					<section>
+						<div align=left><h3>1. MySQLのデプロイ</h3>
+						<h4>以下のコマンドでインストール</h4>
+						<div style="font-size: 16pt;">docker run --name ＜任意の名前＞ -v ＜任意のボリューム＞:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=＜任意のパスワード＞ -p ＜任意のポート＞:3306 -d mysql:＜任意のタグ＞</div>
+						<h4>例:</h4>
+						<div style="font-size: 16pt;">docker run --name mysql -v /my/custom:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=Macnica123 -p 3306:3306 -d mysql:5.6</div></div>
+					</section>
+					<section>
+						<div align=left><h3>2. Wordpressのデプロイ(1/2)</h3>
+						<h4>以下のコマンドでインストール</h4>
+						<div style="font-size: 16pt;">docker run --name ＜任意の名前＞ -e WORDPRESS_DB_HOST=＜MySQLのホスト名 or IP＞:＜MySQLのポート＞ -e WORDPRESS_DB_USER=＜任意のDBユーザー＞ -e WORDPRESS_DB_PASSWORD=＜任意のDB＞ -p ＜任意のポート＞:80 -d wordpress:＜任意のタグ＞</div>
+						<h4>例:</h4>
+						<div style="font-size: 16pt;">docker run --name wordpress -e WORDPRESS_DB_HOST=<b><span style="background-color:#FF0000 !important;"><i>192.168.0.13</i></span></b>:3306 -e WORDPRESS_DB_USER=root -e WORDPRESS_DB_PASSWORD=Macnica123 -p 80:80 -d wordpress:php7.2</div></div>
+					</section>
+					<section>
+						<div align=left><h3>2. Wordpressのデプロイ(2/2)</h3>
+						<img src="img/dp5.png" width="50%"></br>
+						<textarea rows="3" cols="80" style="font-size:16pt;">docker run --name wordpress -e WORDPRESS_DB_HOST=192.168.0.13:3306 -e WORDPRESS_DB_USER=root -e WORDPRESS_DB_PASSWORD=Macnica123 -p 80:80 -d wordpress:php7.2</textarea></div>
+					</section>
+					<section>
+						<div align=left><h3>Wordpressへのアクセス</h3>
+						<img src="img/dp6.png" width="80%"></br>
+					</section>
+					<section>
+						<div align=left><h3>Wordpressの言語設定</h3>
+						<img src="img/wp1.png" width="30%">
+					</section>
+					<section>
+						<div align=left><h3>Wordpressの初期設定</h3>
+						<img src="img/wp2.png" width="50%">
+					</section>
+					<section>
+						<div align=left><h3>Wordpressの設定完了</h3>
+						<img src="img/wp3.png" width="50%">
+					</section>
+					<section>
+						<div align=left><h3>Wordpressにログイン</h3>
+						<img src="img/wp4.png" width="50%">
+					</section>
+					<section>
+						<div align=left><h3>Wordpress</h3>
+						<img src="img/wp5.png" width="80%">
+					</section>
+				</section>
+				<section>
+					<section data-markdown>
+						### 6. Dockerのコマンドを試す
+							1. 起動中のdockerコンテナ一覧出力
+							   $ docker ps 
+							2. wordpressコンテナを停止する
+							   $ docker stop wordpress
+							3. 停止中も含めたdockerコンテナの一覧出力
+							   $ docker ps -a
+							4. ローカルにあるdockerイメージの一覧を出力
+							   $ docker images
+							5. wordpressコンテナを起動しなおす
+							   $ docker start wordpress
+							6. wordpressコンテナのログを見る
+							   $ docker logs wordpress
+					</section>
+				</section>
+				<section>
+					<section data-markdown>
+						### 7. dockerコンテナの中にログインする
+							1. 起動中のdockerコンテナ一覧出力
+							   $ docker ps 
+							2. wordpressコンテナにログインしてみる
+							   $ docker exec -it wordpress /bin/bash
+							3. wordpressコンテナからログアウトする
+							   $ exit
+					</section>
+				</section>
+				<section>
+					<section data-markdown>
+						### 8. dockerコンテナの停止と削除
+							1. 起動中のdockerコンテナ一覧出力
+							   $ docker ps 
+							2. wordpressコンテナを停止
+							   $ docker stop wordpress
+							3. wordpressコンテナを削除
+							   $ docker rm wordpress
+							4. wordpressコンテナが削除されたことを確認
+							   $ docker ps -a
+					</section>
+					<section data-markdown>
+						### MySQLコンテナも削除する
+							1. 起動中のdockerコンテナ一覧出力
+							   $ docker ps 
+							2. MySQLコンテナを停止
+							   $ docker stop mysql
+							3. MySQLコンテナを削除
+							   $ docker rm mysql
+							4. MySQLコンテナが削除されたことを確認
+							   $ docker ps -a
+					</section>
+				</section>
+				<section>
+					<section data-markdown>
+						### 9. docker compose
+							1. docker composeとは
+							2. docker-compose.ymlファイルを作成する
+							3. docker-composeを起動する
+							4. docker-composeを終了する
+					</section>
+					<section data-markdown>
+						### docker composeとは
+							docker composeとは、YAMLと呼ばれるフィル形式で
+							定義された構成情報をもとに、一つまたは複数の
+							dockerコンテナを一括で起動する仕組みです。
+					</section>
+					<section data-markdown>
+						### docker-compose.ymlファイルを作成する
+							1. docker-compose.ymlファイルの作成
+							   $ vi docker-compose.yml
+							2. 「i」キーを押して編集モードに入る
+							3. 下のページにあるファイルの内容をコピーして貼り付ける
+							4. 「WORDPRESS_DB_HOST」のアドレスを自分の環境に変更する
+							5. 「ESC」キーを押して編集モードを終了する
+							6. 「:」キーを推してから「wq」とタイプして保存/終了する
+					</section>
+					<section>
+						<h3>docker-compose.yml</h3>
+						<pre><code class="hljs" data-trim data-line-numbers="4,8-11">
+version: '2'
+services:
+  db:
+    image: mysql:5.6
+    volumes:
+      - "/my/custom:/etc/mysql/conf.d"
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: Macnica123
+
+  wordpress:
+    depends_on:
+      - db
+    image: wordpress:php7.2
+    ports:
+      - "80:80"
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: 192.168.0.13:3306
+      WORDPRESS_DB_PASSWORD: Macnica123
+						</code></pre>
+					</section>
+					<section>
+						<h3>docker-compose.yml 編集用</h3>
+						<textarea rows="21" cols="80" style="font-size:14pt;">
+version: '2'
+services:
+  db:
+    image: mysql:5.6
+    volumes:
+      - "/my/custom:/etc/mysql/conf.d"
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: Macnica123
+
+  wordpress:
+    depends_on:
+      - db
+    image: wordpress:php7.2
+    ports:
+      - "80:80"
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: 192.168.0.13:3306
+      WORDPRESS_DB_PASSWORD: Macnica123
+						</textarea>
+					</section>
+					<section data-markdown>
+						### docker composeを起動する
+							$ docker-compose up
+						### docker composeを終了する
+							$ docker-compose down
+					</section>
+				</section>
+				<section>
+					<section data-markdown>
+						### 10. 自分のdockerイメージをビルドする
+							1. 概要
+							2. index.htmlファイルを作成する
+							3. Dockerfileを作成する
+							4. dockerイメージをビルドする
+							5. ビルドしたイメージを起動する
+							6. ビルドしたイメージをDocker HubにPushする
+					</section>
+					<section data-markdown>
+						### 概要
+							dockerイメージは比較的簡単に自分自身で作ることが可能です。
+							Dockerfileと呼ばれるファイルを作成して、ビルドコマンド
+							を実行すると、自分のイメージが作成できます。
+							作成したイメージは、自分のDocker Hubで公開することが可能です。
+						
+							今回は「nginx」と呼ばれるオープンソースを利用して
+							オリジナルのwebサーバーのイメージを作成します。
+							自分自身が作成したWebページをイメージに入れておき、
+							起動したときのデフォルトのページとして表示します。
+					</section>
+					<section data-markdown>
+						### index.htmlファイルを作成する
+							1. index.htmlファイルの作成
+							   $ vi index.html
+							2. 「i」キーを押して編集モードに入る
+							3. 下のページにあるファイルの内容をコピーして貼り付ける
+							4. 必要に応じて中のテキストを編集する
+							5. 「ESC」キーを押して編集モードを終了する
+							6. 「:」キーを推してから「wq」とタイプして保存/終了する
+					</section>
+					<section>
+						<h3>index.html</h3>
+						<pre><code class="hljs" data-trim data-line-numbers="4,8-11">
+  &lt;!DOCTYPE html>
+  &lt;html>
+      &lt;head>
+          &lt;title>TDU Test page&lt;/title>
+      &lt;/head>
+      &lt;body>
+          &lt;h1>[[ Hello TDU Students!]]&lt;/h1>
+          &lt;h2>This is TDU docker handson!&lt;/h2>
+      &lt;/body>
+  &lt;/html>
+  						</code></pre>
+					</section>
+					<section>
+						
+						<h3>index.html 編集用</h3>
+						<textarea rows="21" cols="80" style="font-size:14pt;">
+  &lt;!DOCTYPE html>
+  &lt;html>
+      &lt;head>
+          &lt;title>TDU Test page&lt;/title>
+      &lt;/head>
+      &lt;body>
+          &lt;h1>[[ Hello TDU Students!]]&lt;/h1>
+          &lt;h2>This is TDU docker handson!&lt;/h2>
+      &lt;/body>
+  &lt;/html>
+						</textarea>
+					</section>
+					<section data-markdown>
+						### Dockerfileを作成する
+							1. Dockerfileファイルの作成
+							   $ vi Dockerfile
+							2. 「i」キーを押して編集モードに入る
+							3. 下のページにあるファイルの内容をコピーして貼り付ける
+							4. 必要に応じて中のテキストを編集する
+							5. 「ESC」キーを押して編集モードを終了する
+							6. 「:」キーを推してから「wq」とタイプして保存/終了する
+					</section>
+					<section>
+						<h3>Dockerfile</h3>
+						<b>Dockerfileの作成</b>
+						<pre>$ vi Dockerfile</pre>
+						<p><font size="3">「i」キーを押して編集モードにし、以下をコピー&ペーストします。</font></p>						
+						<pre><code class="hljs" data-trim data-line-numbers="4,8-11">
+from nginx
+
+RUN apt-get update -y 
+COPY index.html /usr/share/nginx/html/
+RUN chmod +x /usr/share/nginx/html/index.html
+
+EXPOSE 80
+						</code></pre>
+						<b>Dockerfileの保存</b>
+						<p><font size="3">「Esc」キーを押して編集モードを終了し、「:wq」と記載して保存・終了します。</font></p>
+					</section>
+					<section data-markdown>
+						### Dockerイメージをビルドする
+							$ docker build -t web:1.0 .
+						### ビルドしたイメージを起動する
+							$ docker run -p 80:80 -d web:1.0
+					</section>
+					<section>
+						<div align=left><h3>起動したコンテナのWebページを表示</h3>
+						<img src="img/wo1.png" width="80%">
+					</section>
+					<section data-markdown>
+						### ビルドしたイメージをDocker HubにPushする
+							1. イメージのタグ
+							   $ docker tag web:1.0 ＜Docker HubのID＞/web:1.0
+							2. Docker Hubへのログイン
+							   $ docker login
+							3. イメージのPush
+							   $ docker push ＜Docker HubのID＞/web:1.0
+					</section>
+				</section>
+				<section data-transition="slide" data-background="#00008B" data-background-transition="zoom">
+					FIN
+				</section>
+				<section>
+					<section data-markdown>
+					## 最後に 
+					</section>
+					<section>
+						<h3>マクニカのコンテナを用いたDevOpsソリューション</h3>
+						<img src="img/devopssolutions.png" width="80%">
+					</section>
+					<section data-transition="slide" data-background="#4d7e65" data-background-transition="zoom">
+						<h1>We are Hiring!!</h1>
+							<p>人材募集中！！</p>
+						<a href="https://recruit.macnica.co.jp/" target=new>採用応募ページへ</a>
+					</section>
+					<section data-transition="slide" data-background="#faf0e6" data-background-transition="zoom">
+						<h3><font color="black">会社情報リンク</font></h3>
+						<p><a href="https://www.macnica.co.jp/" target=new>マクニカ</a></p>
+						<p><a href="https://www.macnica.net/" target=new>マクニカネットワークス</a></p>
+						<p><a href="https://arimac.macnica.net/blog/" target=new>ありマク</a></p>
+						<p><a href="https://www.macnica.net/ai/" target=new>macnica.ai</a></p>
+					</section>
+					<section data-transition="slide" data-background="#00008B" data-background-transition="zoom">
+						<h3>Thank you</h3>
+					</section>
+			        </section>
+
+			</div>
+
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				center: true,
+				hash: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: '/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '/plugin/highlight/highlight.js', async: true },
+					{ src: '/plugin/search/search.js', async: true },
+					{ src: '/plugin/zoom-js/zoom.js', async: true },
+					{ src: '/plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
