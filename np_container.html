@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>20201202 講義資料</title>
+		<title>20220406 handson</title>
 
 		<meta name="description" content="">
 		<meta name="Minehiko Nohara" content="Macnica Solutions">
@@ -42,90 +42,90 @@
 			<div class="slides">
 
                                 <section>
-				        <h2>TDU</br>コンテナ型仮想化</h2>
+				        <h2>Netpoleon</br>Container Tech</h2>
 				        <h5>2021/12/01</h5>
-                                        <h5>株式会社マクニカ</h5>
+                                        <h5>Macnica</h5>
                                         <h5>Minehiko Nohara</h5>
                                 </section>
 				<section data-transition="slide" data-background="#faf0e6" data-background-transition="zoom">
 					<!--<section data-markdown>-->
 					<H2><font color="black">Agenda</font></H2>
 					<div align="left">
-					  <a href="#/3">1. dockerのインストール</a></br>
+					  <a href="#/3">1. docker installation</a></br>
 					  <a href="#/4">2. docker hub</a></br>
-					  <a href="#/5">3. ハンズオン環境へのアクセス</a></br>
-					  <a href="#/6">4. dockerの基本コマンド</a></br>
-					  <a href="#/7">5. wordpressのシステムを構築する</a></br>
-					  <a href="#/8">6. dockerのコマンドを試す</a></br>
-					  <a href="#/9">7. dockerコンテナの中にログインする</a></br>
-					  <a href="#/10">8. dockerコンテナの停止と削除</a></br>
+					  <a href="#/5">3. access docker playground</a></br>
+					  <a href="#/6">4. docker basic commands</a></br>
+					  <a href="#/7">5. run wordpress application</a></br>
+					  <a href="#/8">6. try docker commands</a></br>
+					  <a href="#/9">7. login to docker container</a></br>
+					  <a href="#/10">8. docker container stop and remove</a></br>
 				          <a href="#/11">9. docker compose</a></br>
-					  <a href="#/12">10. 自分のdockerイメージをビルドする</a></br>
+					  <a href="#/12">10. Build docker image</a></br>
 					</div>
 					<!--</section>-->
 				</section>
 				<section>
 					<section data-transition="slide" data-background-transition="zoom">
-						<h3>ハンズオン</h3>
+						<h3>Handson</h3>
 					</section>
 				</section>
 				<section>
 					<section data-markdown>
-						### 1. dockerのインストール
+						### 1. docker installation
 						#### (今回は実施対象外)
-							1. システムのUpdate 
+							1. Update system (update repo cache) 
 							$ sudo apt-get update
 
-							2. dockerをインストール
+							2. docker install
 							$ sudo apt-get install docker.io
 
-							3. ログインユーザーをdockerグループに追加
+							3. add user to docker group
 							$ sudo gpasswd -a $USER docker
 
-							4. 再起動
+							4. reboot
 							$ sudo reboot
 					
-						#### 前提条件
+						#### condition
 							OS: Ubuntu18.04 LTS
 					</section>
 					<section data-markdown>
-						### docker-composeを利用する場合
-							1. パッケージの取得 
+						### docker-compose installation
+							1. get the package 
 							$ sudo curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 
-							2. 実行権限の付与
+							2. add execution permission
 							$ sudo chmod +x /usr/local/bin/docker-compose
 						
-							3. バージョン確認
+							3. verify version
 							$ docker-compose --version
 					
-						#### 前提条件
+						#### conditions
 							OS: Ubuntu18.04 LTS
-							docker-composeバージョン: 1.27.4
-						#### 補足
-							インストールするdocker-composeのバージョンは、上記のコマンドの中のバージョン番号を変えることで変更できます。
-							次のページでバージョンが確認できます:
+							docker-compose version: 1.27.4
+						#### note
+							you can change docker-compose version to install, by changing version number in command #1
+							In order to know version availability, please access below page:
 							https://github.com/docker/compose/releases
 					</section>
 					<section>
-						<H3>公式ドキュメント(英語)</H3>
-						<H5>Dockerエンジンのインストール</H5>
+						<H3>Official doc</H3>
+						<H5>Install Docker</H5>
 						  <a href="https://docs.docker.com/engine/install/" target="_blank">https://docs.docker.com/engine/install/</a>
-						<H5>docker-composeのインストール</H5>
+						<H5>Install docker-compose</H5>
  						  <a href="https://docs.docker.com/compose/install/" target="_blank">https://docs.docker.com/compose/install/</a>
 					</section>
 				</section>
 				<section>
 					<section data-markdown>
 						### 2. docker hub
-							1. docker hubへのアクセス 
+							1. access docker hub 
 							https://hub.docker.com/
 						
-							2. アカウントを作成
+							2. create an account
 
-							3. アプリケーション検索
+							3. search an application
 
-							4. tagの考え方
+							4. about "tag"
 					</section>
 					<section>
 						<div>dockr hubにアクセスする</div>
