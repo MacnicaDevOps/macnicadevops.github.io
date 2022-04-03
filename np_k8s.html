@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>20220407 handson</title>
+
+		<meta name="description" content="">
+		<meta name="Minehiko Nohara" content="Macnica Solutions">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="shortcut icon" href="https://www.macnica.co.jp/assets/images/favicon/favicon.ico" />
+		<link rel="stylesheet" href="/css/reset.css">
+		<link rel="stylesheet" href="/css/reveal.css">
+		<link rel="stylesheet" href="/css/theme/moon.css" id="theme">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="/lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? '/css/print/pdf.css' : '/css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="/lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<div class="slides">
+
+                                <section>
+				        <h2>Netpoleon</br>kubernetes hands on</h2>
+				        <h5>2022/4/07</h5>
+                                        <h5>Macnica</h5>
+                                        <h5>Minehiko Nohara</h5>
+                                </section>
+				<section data-transition="slide" data-background="#faf0e6" data-background-transition="zoom">
+					<!--<section data-markdown>-->
+					<H2><font color="black">Agenda</font></H2>
+					<div align="left">
+					  <a href="#/3">1. docker installation</a></br>
+					  <a href="#/4">2. docker hub</a></br>
+					  <a href="#/5">3. access docker playground</a></br>
+					  <a href="#/6">4. docker basic commands</a></br>
+					  <a href="#/7">5. run wordpress application</a></br>
+					  <a href="#/8">6. try docker commands</a></br>
+					  <a href="#/9">7. login to docker container</a></br>
+					  <a href="#/10">8. docker container stop and remove</a></br>
+				          <a href="#/11">9. docker compose</a></br>
+					  <a href="#/12">10. Build docker image</a></br>
+					</div>
+					<!--</section>-->
+				</section>
+				<section>
+					<section data-transition="slide" data-background-transition="zoom">
+						<h3>Handson</h3>
+					</section>
+				</section>
+				<section>
+					<section data-markdown>
+						### 1. docker installation
+						#### (Skip this time)
+							1. Update system (update repo cache) 
+							$ sudo apt-get update
+
+							2. docker install
+							$ sudo apt-get install docker.io
+
+							3. add user to docker group
+							$ sudo gpasswd -a $USER docker
+
+							4. reboot
+							$ sudo reboot
+					
+						#### condition
+							OS: Ubuntu18.04 LTS
+					</section>
+					<section data-markdown>
+						### docker-compose installation
+							1. get the package 
+							$ sudo curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
+							2. add execution permission
+							$ sudo chmod +x /usr/local/bin/docker-compose
+						
+							3. verify version
+							$ docker-compose --version
+					
+						#### conditions
+							OS: Ubuntu18.04 LTS
+							docker-compose version: 1.27.4
+						#### note
+							you can change docker-compose version to install, by changing version number in command #1
+							In order to know version availability, please access below page:
+							https://github.com/docker/compose/releases
+					</section>
+					<section>
+						<H3>Official doc</H3>
+						<H5>Install Docker</H5>
+						  <a href="https://docs.docker.com/engine/install/" target="_blank">https://docs.docker.com/engine/install/</a>
+						<H5>Install docker-compose</H5>
+ 						  <a href="https://docs.docker.com/compose/install/" target="_blank">https://docs.docker.com/compose/install/</a>
+					</section>
+				</section>
+				<section>
+					<section data-markdown>
+						### 2. docker hub
+							1. access docker hub 
+							https://hub.docker.com/
+						
+							2. create an account
+
+							3. search an application
+
+							4. about "tag"
+					</section>
+					<section>
+						<div>access dockr hub</div>
+						<a href="https://hub.docker.com/" target="_blank">https://hub.docker.com/</a>
+					</section>
+					<section>
+						<div>create account 1</div>
+						<img src="img/signup_dh.png" width="80%">
+					</section>
+					<section>
+						<div >create account 2</div>
+						<img src="img/signup_dh2.png" width="50%">
+					</section>
+					<section>
+						<div>search application(s)</div>
+						<img src="img/search_dh.png" width="80%">
+					</section>
+					<section>
+						<div>Tag</div>
+						<img src="img/tags_dh.png"width="80%">
+					</section>
+				</section>
+				<section>
+					<section>
+						<h3>3. access docker playground</h3>
+						<a href="https://labs.play-with-docker.com/" target="_blank">https://labs.play-with-docker.com/</a>
+					</section>
+					<section>
+						<div>login with docker hub account</div>
+						<img src="img/dp1.png" width="80%">	
+					</section>
+					<section>
+						<div>input docker hub credential</div>
+						<img src="img/dp2.png" width="80%">	
+					</section>
+					<section>
+						<div>Click "Start"</div>
+						<img src="img/dp3.png" width="80%">	
+					</section>
+					<section>
+						<div>Add new instance</div>
+						<img src="img/dp4.png" width="80%">	
+					</section>
+					<section>
+						<div>Ready to go!</div>
+						<img src="img/dp5.png" width="80%">	
+					</section>
+				</section>
+				<section>
+					<section data-markdown>
+						### 4. Docker basic commands
+							1. list running containers
+							   $ docker ps 
+							2. list all (includint stopped) docker containers
+							   $ docker ps -a
+							3. list local docker images
+							   $ docker images
+					</section>
+					<section data-markdown>
+						### Other docker command examples
+						##### Docker command reference(http://docs.docker.jp/engine/reference/commandline/index.html)
+						
+							docker pull <image name>  ## Pull image from registry
+							docker run <image name>   ## run container from image
+							docker logs <Container name or ID>  ## Output docker container logs
+							docker exec <Container name or ID>  ## Login to docker container
+							docker stop <Container name or ID>  ## Stop docker container
+							docker start <Container name or ID> ## Start stopped docker container
+							docker rm <Container name or ID>    ## Remove docker container
+							docker rmi <Image name or image ID>   ## remove local docker image
+					</section>
+				</section>
+				<section>
+					<section data-markdown>
+						### 5. Run wordpress application
+							1. deploy MySQL
+						
+							2. deploy Wordpress
+					</section>
+					<section>
+						<div align=left><h3>1. deploy MySQL</h3>
+						<h4>Pull and run MySQL with following command</h4>
+						<div style="font-size: 16pt;">docker run --name <ANY NAME> -v <ANY LOCAL VOLUME>:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=<ANY PASSWORD> -p <ANY PORT>:3306 -d mysql:<ANY TAG></div>
+						<h4>e.g.:</h4>
+						<div style="font-size: 16pt;">docker run --name mysql -v /my/custom:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=Macnica123 -p 3306:3306 -d mysql:5.6</div></div>
+					</section>
+					<section>
+						<div align=left><h3>2. Deploy Wordpress(1/2)</h3>
+						<h4>Pull and run wordpress with following command</h4>
+						<div style="font-size: 16pt;">docker run --name <ANY NAME> -e WORDPRESS_DB_HOST=<Host name or IP address of MySQL>:<port for MySQL> -e WORDPRESS_DB_USER=<ANY USER> -e WORDPRESS_DB_PASSWORD=<ANY PASSWORD> -p <ANY PORT>:80 -d wordpress:<TAG(Version)></div>
+						<h4>例:</h4>
+						<div style="font-size: 16pt;">docker run --name wordpress -e WORDPRESS_DB_HOST=<b><span style="background-color:#FF0000 !important;"><i>192.168.0.13</i></span></b>:3306 -e WORDPRESS_DB_USER=root -e WORDPRESS_DB_PASSWORD=Macnica123 -p 80:80 -d wordpress:php7.2</div></div>
+					</section>
+					<section>
+						<div align=left><h3>2. Deploy Wordpress(2/2)</h3>
+						<img src="img/dp5.png" width="50%"></br>
+						<textarea rows="3" cols="80" style="font-size:16pt;">docker run --name wordpress -e WORDPRESS_DB_HOST=192.168.0.13:3306 -e WORDPRESS_DB_USER=root -e WORDPRESS_DB_PASSWORD=Macnica123 -p 80:80 -d wordpress:php7.2</textarea></div>
+					</section>
+					<section>
+						<div align=left><h3>Access Wordpress application</h3>
+						<img src="img/dp6.png" width="80%"></br>
+					</section>
+					<section>
+						<div align=left><h3>Set language</h3>
+						<img src="img/wp1.png" width="30%">
+					</section>
+					<section>
+						<div align=left><h3>Wordpress initial settings</h3>
+						<img src="img/wp2.png" width="50%">
+					</section>
+					<section>
+						<div align=left><h3>Wordpress are now ready!</h3>
+						<img src="img/wp3.png" width="50%">
+					</section>
+					<section>
+						<div align=left><h3>Login to Wordpress</h3>
+						<img src="img/wp4.png" width="50%">
+					</section>
+					<section>
+						<div align=left><h3>Wordpress</h3>
+						<img src="img/wp5.png" width="80%">
+					</section>
+				</section>
+				<section>
+					<section data-markdown>
+						### 6. Try Docker commands
+							1. list running docker containers
+							   $ docker ps 
+							2. stop wordpress container
+							   $ docker stop wordpress
+							3. list all docker container (including stopped)
+							   $ docker ps -a
+							4. list local docker images
+							   $ docker images
+							5. restart wordpress container
+							   $ docker start wordpress
+							6. output wordpress container logs
+							   $ docker logs wordpress
+					</section>
+				</section>
+				<section>
+					<section data-markdown>
+						### 7. login to running container
+							1. list running docker
+							   $ docker ps 
+							2. login to wordpress container
+							   $ docker exec -it wordpress /bin/bash
+							3. logout from wordpress container
+							   $ exit
+					</section>
+				</section>
+				<section>
+					<section data-markdown>
+						### 8. stop and remove docker container
+							1. list all running containers
+							   $ docker ps 
+							2. stop wordpress contaienr
+							   $ docker stop wordpress
+							3. remove wordpress container
+							   $ docker rm wordpress
+							4. verify wordpress container is removed
+							   $ docker ps -a
+					</section>
+					<section data-markdown>
+						### remove MySQL container 
+							1. list all running containers
+							   $ docker ps 
+							2. stop MySQL container
+							   $ docker stop mysql
+							3. stop MySQL container
+							   $ docker rm mysql
+							4. verify MySQL container is removed
+							   $ docker ps -a
+					</section>
+				</section>
+				<section>
+					<section data-markdown>
+						### 9. docker compose
+							1. what is docker compose
+							2. create docker-compose.yml
+							3. docker-compose up
+							4. docker-compose down
+					</section>
+					<section data-markdown>
+						### what is docker compose
+							docker compose provides set of containers run all together by using single YAML file definition
+					</section>
+					<section data-markdown>
+						### create docker-compose.yml
+							1. create docker-compose.yml
+							   $ vi docker-compose.yml
+							2. type "i" for input
+							3. copy and paste texts in the next page
+							4. substitute your IP address to "WORDPRESS_DB_HOST" value
+							5. type "ESC" key to finish input mode
+							6. type ":wq" (w=write, q=quit) to save and exit file edit
+					</section>
+					<section>
+						<h3>docker-compose.yml</h3>
+						<pre><code class="hljs" data-trim data-line-numbers="4,8-11">
+version: '2'
+services:
+  db:
+    image: mysql:5.6
+    volumes:
+      - "/my/custom:/etc/mysql/conf.d"
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: Macnica123
+
+  wordpress:
+    depends_on:
+      - db
+    image: wordpress:php7.2
+    ports:
+      - "80:80"
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: 192.168.0.13:3306
+      WORDPRESS_DB_PASSWORD: Macnica123
+						</code></pre>
+					</section>
+					<section>
+						<h3>docker-compose.yml for edit</h3>
+						<textarea rows="21" cols="80" style="font-size:14pt;">
+version: '2'
+services:
+  db:
+    image: mysql:5.6
+    volumes:
+      - "/my/custom:/etc/mysql/conf.d"
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: Macnica123
+
+  wordpress:
+    depends_on:
+      - db
+    image: wordpress:php7.2
+    ports:
+      - "80:80"
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: 192.168.0.13:3306
+      WORDPRESS_DB_PASSWORD: Macnica123
+						</textarea>
+					</section>
+					<section data-markdown>
+						### start docker compose 
+							$ docker-compose up
+						### stop docker compose
+							$ docker-compose down
+					</section>
+				</section>
+				<section>
+					<section data-markdown>
+						### 10. build your own image
+							1. introduction
+							2. create index.html
+							3. create dockerfile
+							4. build image
+							5. run the image
+							6. push the image to docker Hub
+					</section>
+					<section data-markdown>
+						### introduction
+							doccker image can be easily build by your own.
+							create file with name "Dockerfile" and run build command, then your image is build. 
+							build image can be published in docker hub and other registries.
+						
+							THis time, we use "nginx" to build original web server.
+							First, you create your html file, then override it in containerized web server's default page.
+					</section>
+					<section data-markdown>
+						### create index.html
+							1. create index.html
+							   $ vi index.html
+							2. type "i" for input
+							3. copy and paste texts in the next page
+							4. edit (optional)
+							5. type "ESC" key to finish input mode
+							6. type ":wq" (w=write, q=quit) to save and exit file edit
+					</section>
+					<section>
+						<h3>index.html</h3>
+						<pre><code class="hljs" data-trim data-line-numbers="4,8-11">
+  &lt;!DOCTYPE html>
+  &lt;html>
+      &lt;head>
+          &lt;title>NP Test page&lt;/title>
+      &lt;/head>
+      &lt;body>
+          &lt;h1>[[ Hello Netpoleon!]]&lt;/h1>
+          &lt;h2>This is Netpoleon docker handson!&lt;/h2>
+      &lt;/body>
+  &lt;/html>
+  						</code></pre>
+					</section>
+					<section>
+						
+						<h3>index.html for edit</h3>
+						<textarea rows="21" cols="80" style="font-size:14pt;">
+  &lt;!DOCTYPE html>
+  &lt;html>
+      &lt;head>
+          &lt;title>NP Test page&lt;/title>
+      &lt;/head>
+      &lt;body>
+          &lt;h1>[[ Hello Netpoleon!]]&lt;/h1>
+          &lt;h2>This is Netpoleon docker handson!&lt;/h2>
+      &lt;/body>
+  &lt;/html>
+						</textarea>
+					</section>
+					<section data-markdown>
+						### create Dockerfile
+							1. create Dockerfile
+							   $ vi Dockerfile
+							2. type "i" for input
+							3. copy and paste texts in the next page
+							4. edit (optional)
+							5. type "ESC" key to finish input mode
+							6. type ":wq" (w=write, q=quit) to save and exit file edit
+					</section>
+					<section>
+						<h3>Dockerfile</h3>
+						<b>create Dockerfile</b>
+						<pre>$ vi Dockerfile</pre>
+						<p><font size="3">type "i" for input mode, and copy & paste below texts</font></p>						
+						<pre><code class="hljs" data-trim data-line-numbers="4,8-11">
+from nginx
+
+RUN apt-get update -y 
+COPY index.html /usr/share/nginx/html/
+RUN chmod +x /usr/share/nginx/html/index.html
+
+EXPOSE 80
+						</code></pre>
+						<b>save Dockerfile</b>
+						<p><font size="3">type "ESC" key to finish input mode, and type ":wq" (w=write, q=quit) to save and exit file edit</font></p>
+					</section>
+					<section data-markdown>
+						### build Docker image
+							$ docker build -t web:1.0 .
+						### run the built image 
+							$ docker run -p 80:80 -d web:1.0
+					</section>
+					<section>
+						<div align=left><h3>access the web</h3>
+						<img src="img/wo1.png" width="80%">
+					</section>
+					<section data-markdown>
+						### push the image to Docker Hub
+							1. "tag" the image
+							   $ docker tag web:1.0 ＜Docker Hub ID＞/web:1.0
+							2. login to Docker Hub
+							   $ docker login
+							3. Push image
+							   $ docker push ＜Docker HubのID＞/web:1.0
+					</section>
+				</section>
+				<section data-transition="slide" data-background="#00008B" data-background-transition="zoom">
+					FIN
+				</section>
+				<section>
+					<section data-markdown>
+					## 最後に 
+					</section>
+					<!--<section>
+						<h3>マクニカのコンテナを用いたDevOpsソリューション</h3>
+						<img src="img/devopssolutions.png" width="80%">
+					</section>-->
+					<section data-transition="slide" data-background="#4d7e65" data-background-transition="zoom">
+						<h1>We are Hiring!!</h1>
+							<p>人材募集中！！</p>
+						<a href="https://recruit.macnica.co.jp/" target=new>採用応募ページへ</a>
+					</section>
+					<section data-transition="slide" data-background="#faf0e6" data-background-transition="zoom">
+						<h3><font color="black">会社情報リンク</font></h3>
+						<p><a href="https://www.macnica.co.jp/" target=new>マクニカ</a></p>
+						<p><a href="https://arimac.macnica.net/blog/" target=new>ありマク</a></p>
+						<p><a href="https://www.macnica.ai/" target=new>macnica.ai</a></p>
+						<p><a href="https://macnica.oatnd.com/met2021-ondemand" target=new>MET2021</a></p>
+					</section>
+					<section data-transition="slide" data-background="#00008B" data-background-transition="zoom">
+						<h3>Thank you</h3>
+					</section>
+			        </section>
+
+			</div>
+
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				center: true,
+				hash: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: '/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '/plugin/highlight/highlight.js', async: true },
+					{ src: '/plugin/search/search.js', async: true },
+					{ src: '/plugin/zoom-js/zoom.js', async: true },
+					{ src: '/plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
