@@ -207,14 +207,14 @@
 					<section>
 						<div align=left><h3>1. deploy MySQL</h3>
 						<h4>Pull and run MySQL with following command</h4>
-						<div style="font-size: 16pt;">docker run --name <ANY NAME> -v <ANY LOCAL VOLUME>:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=<ANY PASSWORD> -p <ANY PORT>:3306 -d mysql:<ANY TAG></div>
+						<div style="font-size: 16pt;">docker run --name "<ANY NAME>" -v "<ANY LOCAL VOLUME>":/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD="<ANY PASSWORD>" -p "<ANY PORT>":3306 -d mysql:"<ANY TAG>"</div>
 						<h4>e.g.:</h4>
 						<div style="font-size: 16pt;">docker run --name mysql -v /my/custom:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=Macnica123 -p 3306:3306 -d mysql:5.6</div></div>
 					</section>
 					<section>
 						<div align=left><h3>2. Deploy Wordpress(1/2)</h3>
 						<h4>Pull and run wordpress with following command</h4>
-						<div style="font-size: 16pt;">docker run --name <ANY NAME> -e WORDPRESS_DB_HOST=<Host name or IP address of MySQL>:<port for MySQL> -e WORDPRESS_DB_USER=<ANY USER> -e WORDPRESS_DB_PASSWORD=<ANY PASSWORD> -p <ANY PORT>:80 -d wordpress:<TAG(Version)></div>
+						<div style="font-size: 16pt;">docker run --name "<ANY NAME>" -e WORDPRESS_DB_HOST="<Host name or IP address of MySQL>":"<port for MySQL>" -e WORDPRESS_DB_USER="<ANY USER>" -e WORDPRESS_DB_PASSWORD="<ANY PASSWORD>" -p "<ANY PORT>":80 -d wordpress:"<TAG(Version)>"</div>
 						<h4>例:</h4>
 						<div style="font-size: 16pt;">docker run --name wordpress -e WORDPRESS_DB_HOST=<b><span style="background-color:#FF0000 !important;"><i>192.168.0.13</i></span></b>:3306 -e WORDPRESS_DB_USER=root -e WORDPRESS_DB_PASSWORD=Macnica123 -p 80:80 -d wordpress:php7.2</div></div>
 					</section>
