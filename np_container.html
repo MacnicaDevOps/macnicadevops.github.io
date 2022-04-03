@@ -208,8 +208,8 @@
 					<section>
 						<div align=left><h3>1. deploy MySQL</h3>
 						<h4>Pull and run MySQL with following command</h4>
-						<div style="font-size: 16pt;">docker run --name <ANY NAME> -v <ANY LOCAL VOLUME>:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=<ANY PASSWORD> -p <ANY PORT>:3306 -d mysql:＜任意のタグ＞</div>
-						<h4>例:</h4>
+						<div style="font-size: 16pt;">docker run --name <ANY NAME> -v <ANY LOCAL VOLUME>:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=<ANY PASSWORD> -p <ANY PORT>:3306 -d mysql:<ANY TAG></div>
+						<h4>e.g.:</h4>
 						<div style="font-size: 16pt;">docker run --name mysql -v /my/custom:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=Macnica123 -p 3306:3306 -d mysql:5.6</div></div>
 					</section>
 					<section>
@@ -251,79 +251,77 @@
 				</section>
 				<section>
 					<section data-markdown>
-						### 6. Dockerのコマンドを試す
-							1. 起動中のdockerコンテナ一覧出力
+						### 6. Try Docker commands
+							1. list running docker containers
 							   $ docker ps 
-							2. wordpressコンテナを停止する
+							2. stop wordpress container
 							   $ docker stop wordpress
-							3. 停止中も含めたdockerコンテナの一覧出力
+							3. list all docker container (including stopped)
 							   $ docker ps -a
-							4. ローカルにあるdockerイメージの一覧を出力
+							4. list local docker images
 							   $ docker images
-							5. wordpressコンテナを起動しなおす
+							5. restart wordpress container
 							   $ docker start wordpress
-							6. wordpressコンテナのログを見る
+							6. output wordpress container logs
 							   $ docker logs wordpress
 					</section>
 				</section>
 				<section>
 					<section data-markdown>
-						### 7. dockerコンテナの中にログインする
-							1. 起動中のdockerコンテナ一覧出力
+						### 7. login to running container
+							1. list running docker
 							   $ docker ps 
-							2. wordpressコンテナにログインしてみる
+							2. login to wordpress container
 							   $ docker exec -it wordpress /bin/bash
-							3. wordpressコンテナからログアウトする
+							3. logout from wordpress container
 							   $ exit
 					</section>
 				</section>
 				<section>
 					<section data-markdown>
-						### 8. dockerコンテナの停止と削除
-							1. 起動中のdockerコンテナ一覧出力
+						### 8. stop and remove docker container
+							1. list all running containers
 							   $ docker ps 
-							2. wordpressコンテナを停止
+							2. stop wordpress contaienr
 							   $ docker stop wordpress
-							3. wordpressコンテナを削除
+							3. remove wordpress container
 							   $ docker rm wordpress
-							4. wordpressコンテナが削除されたことを確認
+							4. verify wordpress container is removed
 							   $ docker ps -a
 					</section>
 					<section data-markdown>
-						### MySQLコンテナも削除する
-							1. 起動中のdockerコンテナ一覧出力
+						### remove MySQL container 
+							1. list all running containers
 							   $ docker ps 
-							2. MySQLコンテナを停止
+							2. stop MySQL container
 							   $ docker stop mysql
-							3. MySQLコンテナを削除
+							3. stop MySQL container
 							   $ docker rm mysql
-							4. MySQLコンテナが削除されたことを確認
+							4. verify MySQL container is removed
 							   $ docker ps -a
 					</section>
 				</section>
 				<section>
 					<section data-markdown>
 						### 9. docker compose
-							1. docker composeとは
-							2. docker-compose.ymlファイルを作成する
-							3. docker-composeを起動する
-							4. docker-composeを終了する
+							1. what is docker compose
+							2. create docker-compose.yml
+							3. docker-compose up
+							4. docker-compose down
 					</section>
 					<section data-markdown>
-						### docker composeとは
-							docker composeとは、YAMLと呼ばれるフィル形式で
-							定義された構成情報をもとに、一つまたは複数の
-							dockerコンテナを一括で起動する仕組みです。
+						### what is docker compose
+							docker compose provides set of containers run all together by using single YAML file definition
 					</section>
 					<section data-markdown>
-						### docker-compose.ymlファイルを作成する
-							1. docker-compose.ymlファイルの作成
+						### create docker-compose.yml
+							1. create docker-compose.yml
 							   $ vi docker-compose.yml
-							2. 「i」キーを押して編集モードに入る
-							3. 下のページにあるファイルの内容をコピーして貼り付ける
-							4. 「WORDPRESS_DB_HOST」のアドレスを自分の環境に変更する
-							5. 「ESC」キーを押して編集モードを終了する
-							6. 「:」キーを推してから「wq」とタイプして保存/終了する
+							2. type "i" for input
+							3. copy and paste texts in the next page
+							4. substitute your IP address to "WORDPRESS_DB_HOST" value
+							5. type "ESC" key to finish input mode
+							6. type ":wq" (w=write, q=quit) to save and exit file edit
 					</section>
 					<section>
 						<h3>docker-compose.yml</h3>
@@ -352,7 +350,7 @@ services:
 						</code></pre>
 					</section>
 					<section>
-						<h3>docker-compose.yml 編集用</h3>
+						<h3>docker-compose.yml for edit</h3>
 						<textarea rows="21" cols="80" style="font-size:14pt;">
 version: '2'
 services:
@@ -378,43 +376,40 @@ services:
 						</textarea>
 					</section>
 					<section data-markdown>
-						### docker composeを起動する
+						### start docker compose 
 							$ docker-compose up
-						### docker composeを終了する
+						### stop docker compose
 							$ docker-compose down
 					</section>
 				</section>
 				<section>
 					<section data-markdown>
-						### 10. 自分のdockerイメージをビルドする
-							1. 概要
-							2. index.htmlファイルを作成する
-							3. dockerfileを作成する
-							4. dockerイメージをビルドする
-							5. ビルドしたイメージを起動する
-							6. ビルドしたイメージをdocker HubにPushする
+						### 10. build your own image
+							1. introduction
+							2. create index.html
+							3. create dockerfile
+							4. build image
+							5. run the image
+							6. push the image to docker Hub
 					</section>
 					<section data-markdown>
-						### 概要
-							dockerイメージは比較的簡単に自分自身で作ることが可能です。
-							dockerfileと呼ばれるファイルを作成して、ビルドコマンド
-							を実行すると、自分のイメージが作成できます。
-							作成したイメージは、自分のdocker Hubで公開することが可能です。
+						### introduction
+							doccker image can be easily build by your own.
+							create file with name "Dockerfile" and run build command, then your image is build. 
+							build image can be published in docker hub and other registries.
 						
-							今回は「nginx」と呼ばれるオープンソースを利用して
-							オリジナルのwebサーバーのイメージを作成します。
-							自分自身が作成したWebページをイメージに入れておき、
-							起動したときのデフォルトのページとして表示します。
+							THis time, we use "nginx" to build original web server.
+							First, you create your html file, then override it in containerized web server's default page.
 					</section>
 					<section data-markdown>
-						### index.htmlファイルを作成する
-							1. index.htmlファイルの作成
+						### create index.html
+							1. create index.html
 							   $ vi index.html
-							2. 「i」キーを押して編集モードに入る
-							3. 下のページにあるファイルの内容をコピーして貼り付ける
-							4. 必要に応じて中のテキストを編集する
-							5. 「ESC」キーを押して編集モードを終了する
-							6. 「:」キーを推してから「wq」とタイプして保存/終了する
+							2. type "i" for input
+							3. copy and paste texts in the next page
+							4. edit (optional)
+							5. type "ESC" key to finish input mode
+							6. type ":wq" (w=write, q=quit) to save and exit file edit
 					</section>
 					<section>
 						<h3>index.html</h3>
@@ -422,46 +417,46 @@ services:
   &lt;!DOCTYPE html>
   &lt;html>
       &lt;head>
-          &lt;title>TDU Test page&lt;/title>
+          &lt;title>NP Test page&lt;/title>
       &lt;/head>
       &lt;body>
-          &lt;h1>[[ Hello TDU Students!]]&lt;/h1>
-          &lt;h2>This is TDU docker handson!&lt;/h2>
+          &lt;h1>[[ Hello Netpoleon!]]&lt;/h1>
+          &lt;h2>This is Netpoleon docker handson!&lt;/h2>
       &lt;/body>
   &lt;/html>
   						</code></pre>
 					</section>
 					<section>
 						
-						<h3>index.html 編集用</h3>
+						<h3>index.html for edit</h3>
 						<textarea rows="21" cols="80" style="font-size:14pt;">
   &lt;!DOCTYPE html>
   &lt;html>
       &lt;head>
-          &lt;title>TDU Test page&lt;/title>
+          &lt;title>NP Test page&lt;/title>
       &lt;/head>
       &lt;body>
-          &lt;h1>[[ Hello TDU Students!]]&lt;/h1>
-          &lt;h2>This is TDU docker handson!&lt;/h2>
+          &lt;h1>[[ Hello Netpoleon!]]&lt;/h1>
+          &lt;h2>This is Netpoleon docker handson!&lt;/h2>
       &lt;/body>
   &lt;/html>
 						</textarea>
 					</section>
 					<section data-markdown>
-						### Dockerfileを作成する
-							1. Dockerfileファイルの作成
+						### create Dockerfile
+							1. create Dockerfile
 							   $ vi Dockerfile
-							2. 「i」キーを押して編集モードに入る
-							3. 下のページにあるファイルの内容をコピーして貼り付ける
-							4. 必要に応じて中のテキストを編集する
-							5. 「ESC」キーを押して編集モードを終了する
-							6. 「:」キーを推してから「wq」とタイプして保存/終了する
+							2. type "i" for input
+							3. copy and paste texts in the next page
+							4. edit (optional)
+							5. type "ESC" key to finish input mode
+							6. type ":wq" (w=write, q=quit) to save and exit file edit
 					</section>
 					<section>
 						<h3>Dockerfile</h3>
 						<b>Dockerfileの作成</b>
 						<pre>$ vi Dockerfile</pre>
-						<p><font size="3">「i」キーを押して編集モードにし、以下をコピー&ペーストします。</font></p>						
+						<p><font size="3">type "i" for input mode, and copy & paste below texts</font></p>						
 						<pre><code class="hljs" data-trim data-line-numbers="4,8-11">
 from nginx
 
@@ -471,26 +466,26 @@ RUN chmod +x /usr/share/nginx/html/index.html
 
 EXPOSE 80
 						</code></pre>
-						<b>Dockerfileの保存</b>
-						<p><font size="3">「Esc」キーを押して編集モードを終了し、「:wq」と記載して保存・終了します。</font></p>
+						<b>save Dockerfile</b>
+						<p><font size="3">type "ESC" key to finish input mode, and type ":wq" (w=write, q=quit) to save and exit file edit</font></p>
 					</section>
 					<section data-markdown>
-						### Dockerイメージをビルドする
+						### build Docker image
 							$ docker build -t web:1.0 .
-						### ビルドしたイメージを起動する
+						### run the built image 
 							$ docker run -p 80:80 -d web:1.0
 					</section>
 					<section>
-						<div align=left><h3>起動したコンテナのWebページを表示</h3>
+						<div align=left><h3>access the web</h3>
 						<img src="img/wo1.png" width="80%">
 					</section>
 					<section data-markdown>
-						### ビルドしたイメージをDocker HubにPushする
-							1. イメージのタグ
-							   $ docker tag web:1.0 ＜Docker HubのID＞/web:1.0
-							2. Docker Hubへのログイン
+						### push the image to Docker Hub
+							1. "tag" the image
+							   $ docker tag web:1.0 ＜Docker Hub ID＞/web:1.0
+							2. login to Docker Hub
 							   $ docker login
-							3. イメージのPush
+							3. Push image
 							   $ docker push ＜Docker HubのID＞/web:1.0
 					</section>
 				</section>
