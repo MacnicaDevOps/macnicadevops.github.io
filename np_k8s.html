@@ -47,65 +47,63 @@
                                         <h5>Macnica</h5>
                                         <h5>Minehiko Nohara</h5>
                                 </section>
-				<section data-transition="slide" data-background="#faf0e6" data-background-transition="zoom">
-					<!--<section data-markdown>-->
-					<H2><font color="black">Agenda</font></H2>
-					<div align="left">
-					  <a href="#/3">1. docker installation</a></br>
-					  <a href="#/4">2. docker hub</a></br>
-					  <a href="#/5">3. access docker playground</a></br>
-					  <a href="#/6">4. docker basic commands</a></br>
-					  <a href="#/7">5. run wordpress application</a></br>
-					  <a href="#/8">6. try docker commands</a></br>
-					  <a href="#/9">7. login to docker container</a></br>
-					  <a href="#/10">8. docker container stop and remove</a></br>
-				          <a href="#/11">9. docker compose</a></br>
-					  <a href="#/12">10. Build docker image</a></br>
-					</div>
-					<!--</section>-->
-				</section>
 				<section>
 					<section data-transition="slide" data-background-transition="zoom">
-						<h3>Handson</h3>
+						<h3>Cheetsheet</h3>
 					</section>
 				</section>
 				<section>
 					<section data-markdown>
-						### 1. docker installation
-						#### (Skip this time)
-							1. Update system (update repo cache) 
-							$ sudo apt-get update
+						### Stage 1 
+							https://labs.play-with-k8s.com/#
+							kubeadm init --apiserver-advertise-address $(hostname -i)
+							kubectl get nodes
+							kubectl get pods -n kube-system
+							kubeadm join <IP-Address Node1>:6443 --token <token> --discovery-token-ca-cert-hash <discovery-token-ca-cert-hash>
+							kubectl get nodes
+							kubectl apply -n kube-system -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 |tr -d '\n')"
+							kubectl get nodes
+							kubectl get pods -n kube-system -o wide
+							docker ps
 
-							2. docker install
-							$ sudo apt-get install docker.io
-
-							3. add user to docker group
-							$ sudo gpasswd -a $USER docker
-
-							4. reboot
-							$ sudo reboot
-					
-						#### condition
-							OS: Ubuntu18.04 LTS
 					</section>
 					<section data-markdown>
-						### docker-compose installation
-							1. get the package 
-							$ sudo curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-
-							2. add execution permission
-							$ sudo chmod +x /usr/local/bin/docker-compose
-						
-							3. verify version
-							$ docker-compose --version
-					
-						#### conditions
-							OS: Ubuntu18.04 LTS
-							docker-compose version: 1.27.4
-						#### note
-							you can change docker-compose version to install, by changing version number in command #1
-							In order to know version availability, please access below page:
-							https://github.com/docker/compose/releases
+						### Stage 2
+						#### Step1-1
+							kubectl run nginx --image=nginx:1.17.4 --restart=Never
+							kubectl get pods
+							kubectl get pods -o wide
+							curl http://<IP-Address nginx>/
+							kubectl delete pod nginx
+							kubectl get pods
+						#### Step1-2
+							kubectl run nginx --image=nginx:1.17.4 --restart=Never --dry-run -o yaml
+							mkdir yamls && cd $_
+							kubectl run nginx --image=nginx:1.17.4 --restart=Never --dry-run -o yaml > nginx-pod.yaml
+							ls
+							kubectl apply -f nginx-pod.yaml
+							kubectl get pods
+							kubectl delete -f nginx-pod.yaml
+							kubectl get pods
+					</section>
+					<section data-markdown>
+						#### Step2
+							kubectl create namespace prod --dry-run -o yaml
+							kubectl create namespace prod --dry-run -o yaml > prod-namespace.yaml
+							ls
+							kubectl apply -f prod-namespace.yaml
+							kubectl get namespace
+							kubectl get pods -n prod
+							vi nginx-pod.yaml
+							  namespace: prod
+							:w nginx-pod-prod.yaml
+							:q!
+							ls
+							kubectl apply -f nginx-pod-prod.yaml
+							kubectl get pods
+							kubectl get pods -n prod
+							kubectl delete -f nginx-pod-prod.yaml
+							kubectl get pods -n prod
 					</section>
 					<section>
 						<H3>Official doc</H3>
