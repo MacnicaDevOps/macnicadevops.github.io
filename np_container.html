@@ -204,15 +204,12 @@
 						
 							2. deploy Wordpress
 					</section>
-					<section data-markdown>
-						#### 1. deploy MySQL</h3>
-						##### Pull and run MySQL with following command
-						
-							docker run --name "ANY NAME" -v "ANY LOCAL VOLUME":/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD="ANY PASSWORD" -p "ANY PORT":3306 -d mysql:"ANY TAG(Version)"</div>
-						
-						###### e.g.:</h4>
-						
-							docker run --name mysql -v /my/custom:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=Macnica123 -p 3306:3306 -d mysql:5.6</div></div>
+					<section>
+						<div align=left><h3>1. deploy MySQL</h3>
+						<h4>Pull and run MySQL with following command</h4>
+						<div style="font-size: 16pt;">docker run --name "ANY NAME" -v "ANY LOCAL VOLUME":/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD="ANY PASSWORD" -p "ANY PORT":3306 -d mysql:"ANY TAG(Version)"</div>
+						<h4>e.g.:</h4>
+						<div style="font-size: 16pt;">docker run --name mysql -v /my/custom:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=Macnica123 -p 3306:3306 -d mysql:5.6</div></div>
 					</section>
 					<section>
 						<div align=left><h3>2. Deploy Wordpress(1/2)</h3>
