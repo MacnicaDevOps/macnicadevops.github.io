@@ -54,13 +54,13 @@
 				<section>
 					<section data-markdown>
 						### Stage 1 
-						######## 1-1
+						##### 1-1
 							https://labs.play-with-k8s.com/#
-						######## 1-2
+						##### 1-2
 							kubeadm init --apiserver-advertise-address $(hostname -i)
-						######## 1-3
+						##### 1-3
 							kubectl get nodes
-						######## 1-4
+						##### 1-4
 							kubectl get pods -n kube-system
 							kubeadm join <IP-Address Node1>:6443 --token <token> --discovery-token-ca-cert-hash <discovery-token-ca-cert-hash>
 							kubectl get nodes
