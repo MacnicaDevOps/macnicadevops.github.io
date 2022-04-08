@@ -78,12 +78,13 @@
 					<section data-markdown>
 						### Stage 1 
 						* 1-5
-							* Copy "kubeadm join" command output from node1, and paste it on node2 and node3
+							* Copy "kubeadm join" command output from node1,  
+							  and paste it on node2 and node3
 						```
 						kubeadm join <IP-Address Node1>:6443 --token <token> --discovery-token-ca-cert-hash <discovery-token-ca-cert-hash>
 						```
 						* 1-6
-							* Verify the nodes in the cluster (statuses are "NotReady" at this point)
+							* Verify the nodes in the cluster  (statuses are "NotReady" at this point)
 						```
 						kubectl get nodes
 						```
