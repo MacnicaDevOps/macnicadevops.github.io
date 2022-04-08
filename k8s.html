@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>20220407 handson</title>
+
+		<meta name="description" content="">
+		<meta name="Minehiko Nohara" content="Macnica Solutions">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="shortcut icon" href="https://www.macnica.co.jp/assets/images/favicon/favicon.ico" />
+		<link rel="stylesheet" href="/css/reset.css">
+		<link rel="stylesheet" href="/css/reveal.css">
+		<link rel="stylesheet" href="/css/theme/moon.css" id="theme">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="/lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? '/css/print/pdf.css' : '/css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="/lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<div class="slides">
+
+                                <section>
+				        <h2>Netpoleon</br>kubernetes hands on</h2>
+				        <h5>2022/4/07</h5>
+                                        <h5>Macnica</h5>
+                                </section>
+				<section>
+					<section data-transition="slide" data-background-transition="zoom">
+						<h3>Cheetsheet</h3>
+					</section>
+				</section>
+				<section>
+					<section data-markdown>
+						### Stage 1 
+							https://labs.play-with-k8s.com/#
+							kubeadm init --apiserver-advertise-address $(hostname -i)
+							kubectl get nodes
+							kubectl get pods -n kube-system
+							kubeadm join <IP-Address Node1>:6443 --token <token> --discovery-token-ca-cert-hash <discovery-token-ca-cert-hash>
+							kubectl get nodes
+							[node1 ~]$ kubectl apply -f https://raw.githubusercontent.com/cloudnativelabs/kube-router/master/daemonset/kubeadm-kuberouter.yaml
+							kubectl get nodes
+							kubectl get pods -n kube-system -o wide
+							docker ps
+
+					</section>
+				</section>
+				<section>
+					<section data-markdown>
+						### Stage 2
+						#### Step1-1
+							kubectl run nginx --image=nginx:latest --restart=Never
+							kubectl get pods
+							kubectl get pods -o wide
+							curl http://<IP-Address nginx>/
+							kubectl delete pod nginx
+							kubectl get pods
+						#### Step1-2
+							kubectl run nginx --image=nginx:latest --restart=Never --dry-run=client -o yaml
+							mkdir yamls && cd $_
+							kubectl run nginx --image=nginx:latest --restart=Never --dry-run=client -o yaml > nginx-pod.yaml
+							ls
+							kubectl apply -f nginx-pod.yaml
+							kubectl get pods
+							kubectl delete -f nginx-pod.yaml
+							kubectl get pods
+					</section>
+					<section data-markdown>
+						### Stage 2
+						#### Step2
+							kubectl create namespace prod --dry-run=client -o yaml
+							kubectl create namespace prod --dry-run=client -o yaml > prod-namespace.yaml
+							ls
+							kubectl apply -f prod-namespace.yaml
+							kubectl get namespace
+							kubectl get pods -n prod
+							vi nginx-pod.yaml
+							  namespace: prod
+							:w nginx-pod-prod.yaml
+							:q!
+							ls
+							kubectl apply -f nginx-pod-prod.yaml
+							kubectl get pods
+							kubectl get pods -n prod
+							kubectl delete -f nginx-pod-prod.yaml
+							kubectl get pods -n prod
+					</section>
+				</section>
+					
+				<section>
+					<section data-markdown>
+						### Stage 3
+						#### Step1
+							kubectl create deployment nginx --image=nginx:latest --replicas=2 --dry-run=client -o yaml
+							kubectl create deployment nginx --image=nginx:latest --replicas=2 --dry-run=client -o yaml > nginx-deployment.yaml
+							ls
+							kubectl apply -f nginx-deployment.yaml
+							kubectl get deployment
+							kubectl get replicasets
+							kubectl get pods
+						#### Step2
+							kubectl get deploy nginx -o yaml
+							kubectl get replicaset nginx-<hash> -o yaml
+							kubectl get pods nginx-<hash> -o yaml
+					</section>
+					<section data-markdown>
+						### Stage 3
+						#### Step3
+							kubectl get pods
+							kubectl delete pod nginx-<hash>
+							kubectl get pods
+
+						#### Step4-1
+							kubectl edit deployment nginx
+							  replicas: 4
+							:wq
+							kubectl get deployment
+							kubectl get replicaset
+							kubectl get pods
+					</section>
+					<section data-markdown>
+						### Stage 3
+						#### Step4-2
+							vi nginx-deployment.yaml
+							  replicas: 4
+							:wq
+							kubectl apply -f nginx-deployment.yaml
+							kubectl get deploy
+							kubectl get replicaset
+							kubectl get pods
+						#### Step4-3
+							kubectl get deployment
+							kubectl scale deployment/nginx --replicas=4
+							kubectl get deployment
+							kubectl get pods
+					</section>
+				</section>
+				<section>
+					<section data-markdown>
+						### Stage 4
+						#### Step1
+							kubectl expose deployment nginx --name nginx-service --port=80 --target-port=80 --type=NodePort --dry-run=client -o yaml
+							kubectl expose deployment nginx --name nginx-service --port=80 --target-port=80 --type=NodePort --dry-run=client -o yaml > nginx-service.yaml
+							ls
+							kubectl apply -f nginx-service.yaml
+							kubectl get services
+							ip a | grep eth0
+					</section>
+				</section>
+						
+				<section data-transition="slide" data-background="#00008B" data-background-transition="zoom">
+					FIN
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				center: true,
+				hash: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: '/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '/plugin/highlight/highlight.js', async: true },
+					{ src: '/plugin/search/search.js', async: true },
+					{ src: '/plugin/zoom-js/zoom.js', async: true },
+					{ src: '/plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
