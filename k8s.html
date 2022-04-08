@@ -57,40 +57,53 @@
 						* 1-1 
 							* Open link below  
 						[https://labs.play-with-k8s.com/](https://labs.play-with-k8s.com/){:target="_blank"}
-						* 1-2 add 3 nodes
-						* 1-3 execute below command on node1
+						* 1-2 
+							* add 3 nodes
+						* 1-3 
+							* Execute below command on node1
 						```
 						kubeadm init --apiserver-advertise-address $(hostname -i)
 						```
-						* 1-4 verify the nodes in the cluster
+						* 1-4 
+							* Verify the nodes in the cluster
 						```
 						kubectl get nodes
 						```
 						* 1-5
+							* Verify runnning pods in the cluster
 						```
 						kubectl get pods -n kube-system
 						```
 					</section>
 					<section data-markdown>
 						### Stage 1 
-						1-5
+						* 1-5
+							* Copy "kubeadm join" command output from node1, and paste it on node2 and node3
 						```
-							kubeadm join <IP-Address Node1>:6443 --token <token> --discovery-token-ca-cert-hash <discovery-token-ca-cert-hash>
+						kubeadm join <IP-Address Node1>:6443 --token <token> --discovery-token-ca-cert-hash <discovery-token-ca-cert-hash>
 						```
-						1-6
-						```
-							kubectl get nodes
-						```
-						1-7
-						```
-							kubectl apply -f https://raw.githubusercontent.com/cloudnativelabs/kube-router/master/daemonset/kubeadm-kuberouter.yaml
-						```
+						* 1-6
+							* Verify the nodes in the cluster (statuses are "NotReady" at this point)
 						```
 						kubectl get nodes
 						```
+						* 1-7
+							* Install CNI to the cluster by applying following manifest
+						```
+						kubectl apply -f https://raw.githubusercontent.com/cloudnativelabs/kube-router/master/daemonset/kubeadm-kuberouter.yaml
+						```
+						* 1-8
+							* Verify the nodes in the cluster (wait until all the status changes to "Ready")
+						```
+						kubectl get nodes
+						```
+						* 1-9
+							* Verify runnning pods in the cluster
 						```
 						kubectl get pods -n kube-system -o wide
 						```
+						* 1-10 (Optional)
+							* Verify runnning containers on the master node using "docker ps"
 						```
 						docker ps
 						```
