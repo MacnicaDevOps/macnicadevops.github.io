@@ -497,16 +497,29 @@ services:
 						<pre>$ vi Dockerfile</pre>
 						<p><font size="3">「i」キーを押して編集モードにし、以下をコピー&ペーストします。</font></p>						
 						<pre><code class="hljs" data-trim data-line-numbers="4,8-11">
-from nginx
-
+From nginx
 RUN apt-get update -y 
 COPY index.html /usr/share/nginx/html/
 RUN chmod +x /usr/share/nginx/html/index.html
-
 EXPOSE 80
 						</code></pre>
 						<b>Dockerfileの保存</b>
 						<p><font size="3">「Esc」キーを押して編集モードを終了し、「:wq」と記載して保存・終了します。</font></p>
+					</section>
+					<section data-markdown>
+						### ！Check
+							1. 以下のコマンドで[index.html]が作成されていることを確認
+							   $ ls
+							   ↓下の内容が出力されることを確認
+							   index.html 
+							2. 以下のコマンドで[index.html]の中身が保存されていることを確認
+							$ cat index.html 
+							↓下の内容が出力されることを確認
+							From nginx
+							RUN apt-get update -y 
+							COPY index.html /usr/share/nginx/html/
+							RUN chmod +x /usr/share/nginx/html/index.html
+							EXPOSE 80
 					</section>
 					<section data-markdown>
 						### Dockerイメージをビルドする
