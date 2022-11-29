@@ -53,20 +53,20 @@
 					<div align="left">
 					  <a href="#/3">1. dockerのインストール</a></br>
 					  <a href="#/4">2. docker hub</a></br>
-					  <a href="#/5">3. ハンズオン環境へのアクセス</a></br>
-					  <a href="#/6">4. dockerの基本コマンド</a></br>
-					  <a href="#/7">5. wordpressのシステムを構築する</a></br>
-					  <a href="#/8">6. dockerのコマンドを試す</a></br>
-					  <a href="#/9">7. dockerコンテナの中にログインする</a></br>
-					  <a href="#/10">8. dockerコンテナの停止と削除</a></br>
-				          <a href="#/11">9. docker compose</a></br>
+					  <a href="#/6">3. dockerの基本コマンド</a></br>
+					  <a href="#/7">4. wordpressのシステムを構築する</a></br>
+					  <a href="#/8">5. dockerのコマンドを試す</a></br>
+					  <a href="#/9">6. dockerコンテナの中にログインする</a></br>
+					  <a href="#/10">7. dockerコンテナの停止と削除</a></br>
+				      <a href="#/11">8. docker compose</a></br>
+					  <a href="#/5">9. ハンズオン環境へのアクセス</a></br>
 					  <a href="#/12">10. 自分のdockerイメージをビルドする</a></br>
 					</div>
 					<!--</section>-->
 				</section>
 				<section>
 					<section data-transition="slide" data-background-transition="zoom">
-						<h3>ハンズオン</h3>
+						<h3>デモ</h3>
 					</section>
 				</section>
 				<section>
@@ -151,34 +151,8 @@
 					</section>
 				</section>
 				<section>
-					<section>
-						<h3>3. ハンズオン環境へのアクセス</h3>
-						<a href="https://labs.play-with-docker.com/" target="_blank">https://labs.play-with-docker.com/</a>
-					</section>
-					<section>
-						<div>docker hubのアカウントでログイン</div>
-						<img src="img/dp1.png" width="80%">	
-					</section>
-					<section>
-						<div>docker hubのアカウント情報を入力</div>
-						<img src="img/dp2.png" width="80%">	
-					</section>
-					<section>
-						<div>「Start」をクリック</div>
-						<img src="img/dp3.png" width="80%">	
-					</section>
-					<section>
-						<div>Docker Playgroundでホストを追加</div>
-						<img src="img/dp4.png" width="80%">	
-					</section>
-					<section>
-						<div>準備完了</div>
-						<img src="img/dp5.png" width="80%">	
-					</section>
-				</section>
-				<section>
 					<section data-markdown>
-						### 4. Dockerの基本コマンド
+						### 3. Dockerの基本コマンド
 							1. 起動中のdockerコンテナ一覧出力
 							   $ docker ps 
 							2. 停止中も含めたdockerコンテナの一覧出力
@@ -202,7 +176,7 @@
 				</section>
 				<section>
 					<section data-markdown>
-						### 5. wordpressのシステムを構築する
+						### 4. wordpressのシステムを構築する
 							1. MySQLのデプロイ
 						
 							2. Wordpressのデプロイ
@@ -253,7 +227,7 @@
 				</section>
 				<section>
 					<section data-markdown>
-						### 6. Dockerのコマンドを試す
+						### 5. Dockerのコマンドを試す
 							1. 起動中のdockerコンテナ一覧出力
 							   $ docker ps 
 							2. wordpressコンテナを停止する
@@ -270,7 +244,7 @@
 				</section>
 				<section>
 					<section data-markdown>
-						### 7. dockerコンテナの中にログインする
+						### 6. dockerコンテナの中にログインする
 							1. 起動中のdockerコンテナ一覧出力
 							   $ docker ps 
 							2. wordpressコンテナにログインしてみる
@@ -281,7 +255,7 @@
 				</section>
 				<section>
 					<section data-markdown>
-						### 8. dockerコンテナの停止と削除
+						### 7. dockerコンテナの停止と削除
 							1. 起動中のdockerコンテナ一覧出力
 							   $ docker ps 
 							2. wordpressコンテナを停止
@@ -305,7 +279,7 @@
 				</section>
 				<section>
 					<section data-markdown>
-						### 9. docker compose
+						### 8. docker compose
 							1. docker composeとは
 							2. docker-compose.ymlファイルを作成する
 							3. docker-composeを起動する
@@ -384,6 +358,37 @@ services:
 							$ docker-compose up -d
 						### docker composeを終了する
 							$ docker-compose down
+					</section>
+				</section>
+				<section>
+					<section data-transition="slide" data-background-transition="zoom">
+						<h3>ハンズオン</h3>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h3>9. ハンズオン環境へのアクセス</h3>
+						<a href="https://labs.play-with-docker.com/" target="_blank">https://labs.play-with-docker.com/</a>
+					</section>
+					<section>
+						<div>docker hubのアカウントでログイン</div>
+						<img src="img/dp1.png" width="80%">	
+					</section>
+					<section>
+						<div>docker hubのアカウント情報を入力</div>
+						<img src="img/dp2.png" width="80%">	
+					</section>
+					<section>
+						<div>「Start」をクリック</div>
+						<img src="img/dp3.png" width="80%">	
+					</section>
+					<section>
+						<div>Docker Playgroundでホストを追加</div>
+						<img src="img/dp4.png" width="80%">	
+					</section>
+					<section>
+						<div>準備完了</div>
+						<img src="img/dp5.png" width="80%">	
 					</section>
 				</section>
 				<section>
