@@ -524,9 +524,14 @@ EXPOSE 80
 							   EXPOSE 80
 					</section>
 					<section data-markdown>
-						### Dockerイメージをビルドする
+						#### Dockerイメージをビルドする
 							$ docker build -t web:1.0 .
-						### ビルドしたイメージを起動する
+						#### ビルドされたイメージがあることを確認する
+							$ docker images
+							REPOSITORY   TAG       IMAGE ID       CREATED          SIZE
+							web          1.0       188e034cf846   20 seconds ago   160MB
+							nginx        latest    88736fe82739   13 days ago      142MB
+						#### ビルドしたイメージを起動する
 							$ docker run -p 80:80 -d web:1.0
 					</section>
 					<section>
