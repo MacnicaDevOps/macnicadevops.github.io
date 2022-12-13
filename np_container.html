@@ -260,11 +260,21 @@
 						<div style="font-size: 16pt;">docker run --name mysql --platform=linux/x86_64 -e MYSQL_ROOT_PASSWORD=Macnica123 -p 3306:3306 -d mysql:5.6</div>
 					</section>
 					<section>
+						<div align=left><h3>1.2. Check IP address of MYSQL</h3>
+						<h4>Run following command to enter MYSQL server</h4>
+						<div style="font-size: 16pt;">docker exec -it mysql /bin/bash</div>
+						<h4>check IP address by following command</h4>
+						<div style="font-size: 16pt;">hostname -i</div>
+						<div>exit container</div>
+						<div style="font-size: 16pt;">exit</div>
+					</section>					<section>
 						<div align=left><h3>2. Deploy Wordpress(1/2)</h3>
 						<h4>Pull and run wordpress with following command</h4>
 						<div style="font-size: 16pt;">docker run --name "ANY NAME" -e WORDPRESS_DB_HOST="HOST NAME OR IP ADDRESS TO MySQL":"PORT FOR MySQL" -e WORDPRESS_DB_USER="ANY USER" -e WORDPRESS_DB_PASSWORD="ANY PASSWORD" -p "ANY PORT":80 -d wordpress:"TAG(Version)"</div>
 						<h4>e.g.:</h4>
-						<div style="font-size: 16pt;">docker run --name wordpress -e WORDPRESS_DB_HOST=<b><span style="background-color:#FF0000 !important;"><i>192.168.0.13</i></span></b>:3306 -e WORDPRESS_DB_USER=root -e WORDPRESS_DB_PASSWORD=Macnica123 -p 80:80 -d wordpress:php7.2</div></div>
+						<div style="font-size: 16pt;">docker run --name wordpress -e WORDPRESS_DB_HOST=<b><span style="background-color:#FF0000 !important;"><i>192.168.0.13</i></span></b>:3306 -e WORDPRESS_DB_USER=root -e WORDPRESS_DB_PASSWORD=Macnica123 -p 80:80 -d wordpress:php7.2</div>
+						<div>If your M1/M2 Mac user</div>
+						<div style="font-size: 16pt;">docker run --name wordpress --platform=linux/x86_64 -e WORDPRESS_DB_HOST=<b><span style="background-color:#FF0000 !important;"><i>192.168.0.13</i></span></b>:3306 -e WORDPRESS_DB_USER=root -e WORDPRESS_DB_PASSWORD=Macnica123 -p 80:80 -d wordpress:php7.2</div>
 					</section>
 					<section>
 						<div align=left><h3>2. Deploy Wordpress(2/2)</h3>
