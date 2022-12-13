@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>20220407 handson</title>
+		<title>13th Dec, 2022 handson</title>
 
 		<meta name="description" content="">
 		<meta name="Minehiko Nohara" content="Macnica Solutions">
@@ -69,13 +69,38 @@
 				</section>
 				<section>
 					<section data-markdown>
-						### Stage 2
-						#### Step1-1
-							kubectl run nginx --image=nginx:latest --restart=Never
-							kubectl get pods
-							kubectl get pods -o wide
-							curl http://<IP-Address nginx>/
-							kubectl delete pod nginx
+						- Stage 2
+							- Step1-1
+								- ###### Deploy nginx pod by single command
+							        	kubectl run nginx --image=nginx:latest --restart=Never
+							    - ###### Show running pods
+										kubectl get pods
+								- ###### Show detail about running pods
+										kubectl get pods -o wide
+								- ###### See the output and copy IP address
+										% kubectl get pod -o wide
+										NAME    READY   STATUS    RESTARTS   AGE   IP           NODE             NOMINATED NODE   READINESS GATES
+										nginx   1/1     Running   0          9h    10.1.0.180   docker-desktop   <none>           <none>
+					</section>
+					<section data-markdown>
+						- Stage 2
+							- Step1-2
+								- ###### create a new pod to access the pod
+						    			kubectl run -it curl --image=nginx:latest --restart=Never -- bash
+								- ###### Run curl command to nginx
+										root@curl:/# curl http://"IP-Address of nginx"/
+								- ###### Verify ngnx returns html, and exit from terminal
+										root@curl:/# exit
+									</section>
+									<section data-markdown>
+						- Stage 2
+							- Step2-3
+								- ###### create a new pod to access the pod
+										kubectl run -it curl --image=nginx:latest --restart=Never -- bash
+								- ###### Run curl command to nginx
+										root@curl:/# curl http://"IP-Address of nginx"/
+												- ###### Verify ngnx returns html, and exit from terminal
+														root@curl:/# exit							kubectl delete pod nginx
 							kubectl get pods
 						#### Step1-2
 							kubectl run nginx --image=nginx:latest --restart=Never --dry-run=client -o yaml
