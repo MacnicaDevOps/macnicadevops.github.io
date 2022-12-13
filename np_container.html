@@ -277,8 +277,10 @@
 						<div style="font-size: 16pt;">docker run --name wordpress --platform=linux/x86_64 -e WORDPRESS_DB_HOST=<b><span style="background-color:#FF0000 !important;"><i>192.168.0.13</i></span></b>:3306 -e WORDPRESS_DB_USER=root -e WORDPRESS_DB_PASSWORD=Macnica123 -p 80:80 -d wordpress:php7.2</div>
 					</section>
 					<section>
-						<div align=left><h3>2. Deploy Wordpress(2/2)</h3>
-						<textarea rows="3" cols="80" style="font-size:16pt;">docker run --name wordpress -e WORDPRESS_DB_HOST=192.168.0.13:3306 -e WORDPRESS_DB_USER=root -e WORDPRESS_DB_PASSWORD=Macnica123 -p 80:80 -d wordpress:php7.2</textarea></div>
+						<div align=left><h3>2. Deploy Wordpress(2/2)</h3></div>
+						<textarea rows="3" cols="80" style="font-size:16pt;">docker run --name wordpress -e WORDPRESS_DB_HOST=192.168.0.13:3306 -e WORDPRESS_DB_USER=root -e WORDPRESS_DB_PASSWORD=Macnica123 -p 80:80 -d wordpress:php7.2</textarea>
+						<div>If your M1/M2 Mac user</div>
+						<textarea rows="3" cols="80" style="font-size:16pt;">docker run --name wordpress --platform=linux/x86_64 -e WORDPRESS_DB_HOST=192.168.0.13:3306 -e WORDPRESS_DB_USER=root -e WORDPRESS_DB_PASSWORD=Macnica123 -p 80:80 -d wordpress:php7.2</textarea>
 					</section>
 					<section>
 						<div align=left><h3>Access Wordpress application</h3>
